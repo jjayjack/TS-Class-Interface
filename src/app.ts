@@ -1,16 +1,11 @@
 class Department {
-  // private name: string; moved to constructor
-  private employees: string[] = []; //private = modifier
-  constructor(private readonly id: string, public name: string) {
-    //access modifier
-    // this.name = n;
-  }
+  private employees: string[] = [];
+  constructor(private readonly id: string, public name: string) {}
   describe(this: Department) {
     console.log(`Department (${this.id}): ${this.name}`);
-  } //Method
+  }
 
   addEmployee(employee: string) {
-    // could add validation
     this.employees.push(employee);
   }
   printEmployeeInformation() {
@@ -18,12 +13,34 @@ class Department {
     console.log(this.employees);
   }
 }
-const accounting = new Department("d1", "Accounting");
+class ITDepartment extends Department {
+  admins: string[];
+  constructor(id: string, admins: string[]) {
+    super(id, "IT"); //MUST be included to set new parameters
+    this.admins = admins;
+  }
+}
+class AccountingDepartment extends Department {
+  constructor(id: string, private reports: string[]) {
+    super(id, "Accounting");
+  }
+  addReport(text: string) {
+    this.reports.push(text);
+  }
+  printReports() {
+    console.log(this.reports);
+  }
+}
+const newIT = new ITDepartment("d1", ["Max"]);
+const accounting = new AccountingDepartment("d2", []);
+accounting.addReport("Something went wrong");
+accounting.printReports();
+newIT.addEmployee("Manuel");
+newIT.addEmployee("Jen");
 accounting.addEmployee("Max");
 accounting.addEmployee("Amanda");
-// accounting.employees[2] = "Anna"; cannot add on to employees BECAUSE we've set class item as PRIVATE
 
+newIT.describe();
+newIT.printEmployeeInformation();
 accounting.describe();
 accounting.printEmployeeInformation();
-// const accountingCopy = { name: "s", describe: accounting.describe };
-// accountingCopy.describe();
