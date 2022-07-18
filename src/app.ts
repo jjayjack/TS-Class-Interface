@@ -1,5 +1,5 @@
 class Department {
-  private employees: string[] = [];
+  protected employees: string[] = [];
   constructor(private readonly id: string, public name: string) {}
   describe(this: Department) {
     console.log(`Department (${this.id}): ${this.name}`);
@@ -23,6 +23,12 @@ class ITDepartment extends Department {
 class AccountingDepartment extends Department {
   constructor(id: string, private reports: string[]) {
     super(id, "Accounting");
+  }
+  addEmployee(name: string) {
+    if (name === "Max") {
+      return;
+    }
+    this.employees.push(name);
   }
   addReport(text: string) {
     this.reports.push(text);
