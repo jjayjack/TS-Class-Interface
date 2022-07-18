@@ -1,7 +1,7 @@
 class Department {
   static fiscalYear = 2022;
   protected employees: string[] = [];
-  constructor(private readonly id: string, public name: string) {}
+  constructor(protected readonly id: string, public name: string) {}
   static createEmployee(name: string) {
     return { name: name };
   }
@@ -43,6 +43,9 @@ class AccountingDepartment extends Department {
     super(id, "Accounting");
     this.lastReport = reports[0];
   }
+  describe(): void {
+    console.log("Accounting Department - ID: " + this.id);
+  }
   addEmployee(name: string) {
     if (name === "Max") {
       return;
@@ -59,11 +62,12 @@ class AccountingDepartment extends Department {
 }
 const employee1 = Department.createEmployee("Max");
 console.log(employee1, Department.fiscalYear);
-const newIT = new ITDepartment("d1", ["Max"]);
-newIT.addEmployee("Manuel");
-newIT.addEmployee("Jen");
-newIT.describe();
-newIT.printEmployeeInformation();
+
+const iT = new ITDepartment("d1", ["Max"]);
+iT.addEmployee("Manuel");
+iT.addEmployee("Jen");
+iT.describe();
+iT.printEmployeeInformation();
 
 const accounting = new AccountingDepartment("d2", []);
 accounting.mostRecentReport = "Year End Report";
@@ -73,4 +77,5 @@ accounting.printReports();
 accounting.addEmployee("Max");
 accounting.addEmployee("Amanda");
 accounting.describe();
-accounting.printEmployeeInformation();
+// accounting.describe();
+// accounting.printEmployeeInformation();
