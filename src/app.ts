@@ -29,7 +29,7 @@ class ITDepartment extends Department {
 }
 class AccountingDepartment extends Department {
   private lastReport: string;
-  // Property which you execute when called
+  private static instance: AccountingDepartment;
   get mostRecentReport() {
     if (this.lastReport) {
       return this.lastReport;
@@ -42,9 +42,16 @@ class AccountingDepartment extends Department {
     }
     this.addReport(value);
   }
-  constructor(id: string, private reports: string[]) {
+  private constructor(id: string, private reports: string[]) {
     super(id, "Accounting");
     this.lastReport = reports[0];
+  }
+  static getInstance() {
+    if (this.instance) {
+      return AccountingDepartment.instance;
+    }
+    this.instance = new AccountingDepartment("d2", []);
+    return this.instance;
   }
   describe(): void {
     console.log("Accounting Department - ID: " + this.id);
@@ -72,7 +79,7 @@ iT.addEmployee("Jen");
 iT.describe();
 iT.printEmployeeInformation();
 
-const accounting = new AccountingDepartment("d2", []);
+const accounting = AccountingDepartment.getInstance();
 accounting.mostRecentReport = "Year End Report";
 accounting.addReport("Sales Q1 Forecast");
 console.log(accounting.mostRecentReport);
