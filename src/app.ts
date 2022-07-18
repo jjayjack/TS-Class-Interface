@@ -1,11 +1,11 @@
 class Department {
-  name: string;
+  // private name: string; moved to constructor
   private employees: string[] = []; //private = modifier
-  constructor(n: string) {
-    this.name = n;
+  constructor(private id: string, public name: string) {
+    // this.name = n;
   }
   describe(this: Department) {
-    console.log("Department: " + this.name);
+    console.log(`Department (${this.id}): ${this.name}`);
   } //Method
 
   addEmployee(employee: string) {
@@ -17,7 +17,7 @@ class Department {
     console.log(this.employees);
   }
 }
-const accounting = new Department("Accounting");
+const accounting = new Department("d1", "Accounting");
 accounting.addEmployee("Max");
 accounting.addEmployee("Amanda");
 // accounting.employees[2] = "Anna"; cannot add on to employees BECAUSE we've set class item as PRIVATE
