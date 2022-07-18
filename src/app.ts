@@ -1,7 +1,8 @@
 class Department {
   // private name: string; moved to constructor
   private employees: string[] = []; //private = modifier
-  constructor(private id: string, public name: string) {
+  constructor(private readonly id: string, public name: string) {
+    //access modifier
     // this.name = n;
   }
   describe(this: Department) {
