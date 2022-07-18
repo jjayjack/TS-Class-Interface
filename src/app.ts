@@ -1,5 +1,6 @@
 interface Greetable {
-  name: string;
+  //Object
+  readonly name: string;
   greet(phrase: string): void;
 }
 class Person implements Greetable {
